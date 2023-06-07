@@ -1,12 +1,29 @@
-import React from "react";
-import account from "../sdk/appwrite.jsx";
+import React, { useEffect } from "react";
+import { account, graphql } from "../sdk/appwrite.jsx";
 import { Link } from "react-router-dom";
 function Auth() {
+  const [email, setEmail] = React.useState("");
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+
+  const getCurrentUser = async () => {
+    try {
+      const data = await account.get();
+
+      if (data) {
+        window.location.href = "/home";
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const loginwithGoogle = async (e) => {
     e.preventDefault();
     const acc = account.createOAuth2Session(
       "google",
-      "http://localhost:5173/",
+      "http://localhost:5173/home",
       "http://localhost:5173/login"
     );
     console.log(acc);
@@ -87,6 +104,7 @@ function Auth() {
                   }}
                 >
                   <div
+                    onClick={(e) => loginwithGoogle(e)}
                     style={{
                       flex: 1,
                       display: "flex",
@@ -145,7 +163,7 @@ function Auth() {
                     }}
                   >
                     <img
-                      src="../assets/google.png"
+                      src="../assets/facebook.png"
                       style={{
                         width: 50,
                         height: 50,
@@ -163,7 +181,7 @@ function Auth() {
                         fontSize: "20px",
                       }}
                     >
-                      SignUp With Google
+                      SignIn With Facebook
                     </p>
                   </div>
                 </div>

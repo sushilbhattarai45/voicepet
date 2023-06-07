@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./css/navbar.css";
+import { account } from "../sdk/appwrite";
 function NavBar() {
+  const [email, setEmail] = React.useState("");
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+
+  const getCurrentUser = async () => {
+    try {
+      const data = await account.get();
+
+      if (data) {
+        setEmail(data.email);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleLogout = async (e) => {
+    try {
+      await account.deleteSession("current");
+      window.location.reload();
+    } catch (error) {
+      // toast.error(`${error.message}`);
+    }
+  };
   return (
     <>
       <div>
@@ -25,8 +51,51 @@ function NavBar() {
 
           <ul>
             <li> Pricing</li>
-            <li> Algorithm</li>
-            <li> Login</li>
+            <Link to="/interview">
+              {" "}
+              <li
+                style={{
+                  color: "white",
+                }}
+              >
+                {" "}
+                Start
+              </li>
+            </Link>
+            {email ? (
+              <>
+                {" "}
+                <li> MyAccount</li>
+                <div
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    alert("a");
+                    handleLogout();
+                  }}
+                >
+                  <li>Logout</li>
+                </div>
+              </>
+            ) : (
+              <Link
+                to="/auth"
+                style={{
+                  textDecorationColor: "white",
+                }}
+              >
+                {" "}
+                <li
+                  style={{
+                    color: "white",
+                  }}
+                >
+                  {" "}
+                  Login
+                </li>
+              </Link>
+            )}
           </ul>
         </nav>
       </div>

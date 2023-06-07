@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Account, Client } from "appwrite";
 import "./css/main.css";
 import { Link } from "react-router-dom";
+import { graphql, account } from "../sdk/appwrite.jsx";
+
 function Landing() {
+  useEffect(() => {
+    getCurrentUser().then((user) => {
+      console.log(user);
+    });
+  }, []);
+  const getCurrentUser = async () => {
+    try {
+      const data = await account.get();
+
+      if (account !== null) {
+        window.location.href = "/home";
+      }
+
+      // setUserDetails(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div>

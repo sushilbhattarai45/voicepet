@@ -4,6 +4,8 @@ import "./css/navbar.css";
 import { account } from "../sdk/appwrite";
 function NavBar() {
   const [email, setEmail] = React.useState("");
+  const [name, setName] = React.useState("");
+
   useEffect(() => {
     getCurrentUser();
   }, []);
@@ -14,6 +16,7 @@ function NavBar() {
 
       if (data) {
         setEmail(data.email);
+        setName(data.name);
       }
     } catch (error) {
       console.log(error);
@@ -50,7 +53,17 @@ function NavBar() {
           </p>
 
           <ul>
-            <li> Pricing</li>
+            <div
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                handleLogout();
+              }}
+            >
+              <li>Logout</li>
+            </div>
+            {/* <li> Pricing</li> */}
             <Link to="/interview">
               {" "}
               <li
@@ -59,23 +72,36 @@ function NavBar() {
                 }}
               >
                 {" "}
-                Start
+                Voice Session
               </li>
             </Link>
+            {/* <Link"> */}{" "}
+            <li
+              onClick={() => {
+                alert("Chat Session is not available but comming soon");
+              }}
+              style={{
+                cursor: "pointer",
+                color: "white",
+              }}
+            >
+              {" "}
+              Chat Session
+            </li>
+            {/* </Link> */}
             {email ? (
               <>
                 {" "}
-                <li> MyAccount</li>
-                <div
+                {/* <li> MyAccount</li> */}
+                <li
                   style={{
                     cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    handleLogout();
+                    color: "white",
                   }}
                 >
-                  <li>Logout</li>
-                </div>
+                  {" "}
+                  Hi {name}{" "}
+                </li>
               </>
             ) : (
               <Link

@@ -26,7 +26,11 @@ function Landing() {
 
   return (
     <>
-      <div>
+      <div
+        style={{
+          overflow: "hidden",
+        }}
+      >
         <div
           style={{
             overflow: "hidden",
@@ -176,7 +180,7 @@ function Landing() {
             style={{
               display: "flex",
               justifyContent: "center",
-              position: "absolute",
+              position: "fixed",
               bottom: "0px",
               backgroundColor: "#030232",
               width: "100%",

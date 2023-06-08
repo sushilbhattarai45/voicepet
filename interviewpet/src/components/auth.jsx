@@ -94,6 +94,7 @@ function Auth() {
                 </p>{" "}
                 <div
                   style={{
+                    cursor: "pointer",
                     marginTop: 50,
                     width: 400,
                     margin: 30,
@@ -141,6 +142,7 @@ function Auth() {
                 </div>
                 <div
                   style={{
+                    cursor: "pointer",
                     marginTop: 50,
                     width: 400,
                     margin: 30,

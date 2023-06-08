@@ -173,7 +173,6 @@ function Home() {
               style={{
                 display: "flex",
                 flex: 0.5,
-
                 justifyContent: "space-around",
                 flexDirection: "column",
               }}
@@ -268,6 +267,7 @@ function Home() {
                         fontFamily: "Poppins",
                         fontStyle: "italic",
                         fontWeight: 500,
+                        marginTop: -10,
                         fontSize: "15px",
                       }}
                     >
@@ -314,22 +314,24 @@ function Home() {
                       width: "200px",
                       flex: 0.9,
                       // alignSelf: "center",
+                      marginTop: -20,
                       borderRadius: "100%",
                       justifyContent: "center",
-                      backgroundColor: "#030232",
+                      backgroundColor: "white",
                     }}
                   >
                     <img
-                      src="/assets/bot2.svg"
+                      src="/assets/bot.svg"
                       style={{
                         padding: 50,
+                        opacity: 0.8,
                         flex: 0.1,
                         color: "white",
                         float: "center",
                         // marginBottom: 200,
                         alignSelf: "center",
-                        width: "100px",
-                        height: "100px",
+                        width: "150px",
+                        height: "150px",
                       }}
                     />
                   </div>

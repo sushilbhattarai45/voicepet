@@ -1,25 +1,124 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
   resetTranscript,
   browserSupportsSpeechRecognition,
 } from "react-speech-recognition";
+import moment from "moment/moment";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { account, database } from "../sdk/appwrite";
+import { account, database } from "../sdk/appwrite.jsx";
 import { ID } from "appwrite";
+import { useTime } from "react-timer-hook";
+import toast, { Toaster } from "react-hot-toast";
+
 function Interview() {
+  const [email, setEmail] = React.useState("");
+  useEffect(() => {
+    getCurrentUser();
+    checkAuth(email);
+  }, []);
+
+  const getCurrentUser = async () => {
+    try {
+      const data = await account.get();
+
+      if (data) {
+        setEmail(data.email);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const checkAuth = async () => {
+    if (email == null) {
+      window.location.href = "/auth";
+    }
+  };
+  const { seconds, minutes, hours, ampm } = useTime({ format: "12-hour" });
   const [isStarted, setIsStarted] = React.useState(false);
   const [mainImg, setMainImg] = React.useState(false);
+  const [session_id, setSession_id] = React.useState();
+  const [lastqn, setLastqn] = React.useState([
+    {
+      qn: "",
+      ans: "",
+    },
+  ]);
   async function getData() {
+    let questions = transcript;
+
+    if (!browserSupportsSpeechRecognition) {
+      return <span>Browser doesn't support speech recognition.</span>;
+    }
+
+    query(questions, lastqn);
+  }
+
+  async function query(questions, lastqn) {
+    if (lastqn != null && lastqn.length > 0) {
+      for (let i = 0; i < lastqn.length; i++) {
+        questions =
+          "The previous context was " +
+          lastqn[i].qn +
+          " and the answer was " +
+          lastqn[i].ans +
+          " .  Now answer this " +
+          questions;
+      }
+    }
+    console.log(questions);
+    const options = {
+      method: "POST",
+      url: "https://chatgpt-gpt-3-5.p.rapidapi.com/ask",
+      headers: {
+        "content-type": "application/json",
+        "X-RapidAPI-Key": "699ea8e4admsha947a620bc04ad1p16131ajsncd08755dae31",
+        "X-RapidAPI-Host": "chatgpt-gpt-3-5.p.rapidapi.com",
+      },
+      data: {
+        query:
+          " My last question was " +
+          lastqn +
+          ". Answer this question  " +
+          questions,
+      },
+    };
+
+    try {
+      const response = await axios.request(options);
+      console.log(response.data.response);
+
+      if (!response.data.response) {
+        query(transcript);
+      } else {
+        resetTranscript();
+
+        let utterance = new SpeechSynthesisUtterance(response.data.response);
+        setMainImg(true);
+        speechSynthesis.speak(utterance);
+        lastqn.push({ qn: transcript, ans: response.data.response });
+        uploadData(response.data.response);
+        await new Promise((resolve) => setTimeout(resolve, 5000)); // 3 sec
+        console.log(2);
+        setMainImg(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function uploadData(ans) {
+    const data = await account.get();
     const promise = database.createDocument(
       "64807d7325103770a222",
       "64807d872f22ce9d0c9a",
       ID.unique(),
       {
-        user_id: "John",
-        qnans: "29",
-        date: "2021-04-01T00:00:00.000Z",
+        session_id: session_id,
+        user_id: data.$id,
+        qn: transcript,
+        ans: ans,
+        doc: "Jun 8, 2023, 11:47",
       }
     );
     promise.then(
@@ -31,47 +130,6 @@ function Interview() {
         console.log(error); // Failure
       }
     );
-
-    let questions = transcript;
-
-    if (!browserSupportsSpeechRecognition) {
-      return <span>Browser doesn't support speech recognition.</span>;
-    }
-
-    query(questions);
-  }
-
-  async function query(questions) {
-    const options = {
-      method: "POST",
-      url: "https://chatgpt-gpt-3-5.p.rapidapi.com/ask",
-      headers: {
-        "content-type": "application/json",
-        "X-RapidAPI-Key": "699ea8e4admsha947a620bc04ad1p16131ajsncd08755dae31",
-        "X-RapidAPI-Host": "chatgpt-gpt-3-5.p.rapidapi.com",
-      },
-      data: {
-        query: questions,
-      },
-    };
-
-    try {
-      const response = await axios.request(options);
-      console.log(response.data.response);
-
-      if (!response.data.response) {
-        query(transcript);
-      }
-      let utterance = new SpeechSynthesisUtterance(response.data.response);
-      setMainImg(true);
-      speechSynthesis.speak(utterance);
-      await new Promise((resolve) => setTimeout(resolve, 5000)); // 3 sec
-      console.log(2);
-
-      setMainImg(false);
-    } catch (error) {
-      console.error(error);
-    }
   }
   // async function query(questions) {
   //   const encodedParams = new URLSearchParams();
@@ -143,7 +201,22 @@ function Interview() {
               }}
             >
               {" "}
-              Timer : 01:02:03
+              Timer :
+              <span
+                style={{
+                  color: "red",
+                }}
+              >
+                {" " + hours}:{" " + minutes}:{" " + seconds}{" "}
+                <span
+                  autoCapitalize="true"
+                  style={{
+                    autoCapitalize: "true",
+                  }}
+                >
+                  {" " + ampm}
+                </span>
+              </span>
             </p>
             <p
               style={{
@@ -154,7 +227,14 @@ function Interview() {
                 fontSize: "20px",
               }}
             >
-              Day : Tuesday
+              Day :{" "}
+              <span
+                style={{
+                  color: "red",
+                }}
+              >
+                {moment().format("dddd")}{" "}
+              </span>
             </p>
             <p
               style={{
@@ -166,7 +246,14 @@ function Interview() {
                 fontSize: "20px",
               }}
             >
-              Date :23rd Nov
+              Date :{" "}
+              <span
+                style={{
+                  color: "red",
+                }}
+              >
+                {moment().format("MMM Do YYYY")}
+              </span>
             </p>
           </div>
           <div
@@ -183,7 +270,7 @@ function Interview() {
                   fontSize: "30px",
                 }}
               >
-                InterView Session
+                Test Session
               </p>
               <div
                 style={{
@@ -267,55 +354,111 @@ function Interview() {
                     fontSize: "15px",
                   }}
                 >
-                  Hello there I am A Voice Pet How can I help you .
+                  Hello I am A Voice Pet How can I help you .
                 </p>
               )}
-              <div
-                style={{
-                  display: "flex",
-                  width: "50%",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                  flexDirection: "row",
-                  flex: 1,
-                }}
-              >
-                {isStarted ? (
-                  <button
+
+              {session_id != null ? (
+                <div
+                  style={{
+                    display: "flex",
+                    width: "50%",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                    flexDirection: "row",
+                    flex: 1,
+                  }}
+                >
+                  {isStarted ? (
+                    <button
+                      onClick={async () => {
+                        setIsStarted(false);
+                        SpeechRecognition.stopListening();
+                        await getData();
+                      }}
+                      style={{
+                        display: "flex",
+                        fontFamily: "Poppins",
+                        fontStyle: "normal",
+                        fontWeight: 600,
+                        fontSize: "20px",
+                        lineHeight: "45px",
+                        justifyContent: "center",
+                        textAlign: "center",
+                        color: "white",
+                        backgroundColor: "red",
+                        bottom: "100px",
+                        width: "200px",
+                        hover: "pointer",
+                        cursor: "pointer",
+                        height: "60px",
+                        verticalAlign: "middle",
+                        justifyItems: "center",
+                        alignItems: "center",
+                        borderRadius: "10px",
+                      }}
+                    >
+                      Stop Now
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setIsStarted(true);
+                        SpeechRecognition.startListening({ continuous: true });
+                      }}
+                      style={{
+                        cursor: "pointer",
+                        display: "flex",
+                        fontFamily: "Poppins",
+                        fontStyle: "normal",
+                        fontWeight: 600,
+                        fontSize: "20px",
+                        lineHeight: "45px",
+                        justifyContent: "center",
+                        textAlign: "center",
+                        color: "white",
+                        backgroundColor: "#030232",
+                        bottom: "100px",
+                        width: "200px",
+                        height: "60px",
+                        verticalAlign: "middle",
+                        justifyItems: "center",
+                        alignItems: "center",
+                        borderRadius: "10px",
+                      }}
+                    >
+                      Talk Now
+                    </button>
+                  )}
+
+                  <img
                     onClick={async () => {
+                      // alert("Please Wait For 5 Seconds");
+                      toast("Please Wait For 5 Seconds");
                       setIsStarted(false);
-                      SpeechRecognition.stopListening();
-                      await getData();
+                      setSession_id(null);
+                      window.location.href = "/home";
                     }}
+                    src="../assets/stop.png"
                     style={{
-                      display: "flex",
-                      fontFamily: "Poppins",
-                      fontStyle: "normal",
-                      fontWeight: 600,
-                      fontSize: "20px",
-                      lineHeight: "45px",
-                      justifyContent: "center",
-                      textAlign: "center",
-                      color: "white",
-                      backgroundColor: "red",
-                      bottom: "100px",
-                      width: "200px",
-                      hover: "pointer",
-                      cursor: "pointer",
-                      height: "60px",
-                      verticalAlign: "middle",
-                      justifyItems: "center",
-                      alignItems: "center",
-                      borderRadius: "10px",
+                      width: 50,
+                      height: 50,
+                      borderRadius: 50,
                     }}
-                  >
-                    Stop Now
-                  </button>
-                ) : (
+                  />
+
                   <button
                     onClick={() => {
-                      setIsStarted(true);
-                      SpeechRecognition.startListening({ continuous: true });
+                      setIsStarted(false);
+                      resetTranscript();
+
+                      setLastqn([
+                        {
+                          qn: "",
+                          ans: "",
+                        },
+                      ]);
+                      console.log(lastqn[0]);
                     }}
                     style={{
                       cursor: "pointer",
@@ -338,46 +481,28 @@ function Interview() {
                       borderRadius: "10px",
                     }}
                   >
-                    Talk Now
+                    Reset Context{" "}
                   </button>
-                )}
+                </div>
+              ) : (
                 <img
-                  src="../assets/stop.png"
+                  onClick={async () => {
+                    setSession_id(
+                      Math.random(1000000) *
+                        Math.random(100000) *
+                        Math.random(100000) *
+                        10000
+                    );
+                    console.log("sess" + session_id);
+                  }}
+                  src="../assets/play.png"
                   style={{
                     width: 50,
                     height: 50,
                     borderRadius: 50,
                   }}
                 />
-                <button
-                  onClick={() => {
-                    setIsStarted(false);
-                    resetTranscript();
-                  }}
-                  style={{
-                    cursor: "pointer",
-                    display: "flex",
-                    fontFamily: "Poppins",
-                    fontStyle: "normal",
-                    fontWeight: 600,
-                    fontSize: "20px",
-                    lineHeight: "45px",
-                    justifyContent: "center",
-                    textAlign: "center",
-                    color: "white",
-                    backgroundColor: "#030232",
-                    bottom: "100px",
-                    width: "200px",
-                    height: "60px",
-                    verticalAlign: "middle",
-                    justifyItems: "center",
-                    alignItems: "center",
-                    borderRadius: "10px",
-                  }}
-                >
-                  Reset{" "}
-                </button>
-              </div>
+              )}
             </center>
           </div>
         </section>
@@ -403,7 +528,8 @@ function Interview() {
               color: "white",
             }}
           >
-            InterViewPet - A Seamless Digital InterView Platform
+            Fluencer - A Seamless Digital English Fluency enhancing and Virtual
+            Assistant Platform
           </p>
         </div>
       </div>

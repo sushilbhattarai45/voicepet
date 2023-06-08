@@ -46,7 +46,7 @@ function Auth() {
                 fontSize: "30px",
               }}
             >
-              InterViewPet
+              Fluencer
             </p>
             <p
               style={{
@@ -58,7 +58,8 @@ function Auth() {
                 color: "#030232",
               }}
             >
-              InterViewPet - A Seamless Digital InterView Platform
+              Fluencer - A Seamless Digital English Fluency enhancing and
+              Virtual Assistant Platform
             </p>
           </center>
 
@@ -249,7 +250,8 @@ function Auth() {
               color: "white",
             }}
           >
-            InterViewPet - A Seamless Digital InterView Platform
+            Fluencer - A Seamless Digital English Fluency enhancing and Virtual
+            Assistant Platform
           </p>
         </div>
       </div>

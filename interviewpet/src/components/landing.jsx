@@ -83,7 +83,7 @@ function Landing() {
                   fontSize: "50px",
                 }}
               >
-                InterViewPet
+                Fluencer
               </p>
               <p
                 style={{
@@ -95,7 +95,8 @@ function Landing() {
                   fontSize: "20px",
                 }}
               >
-                A Seamless Digital InterView Platform
+                A Seamless Digital English Fluency enhancing and Virtual
+                Assistant Platform
               </p>
             </div>
 
@@ -140,32 +141,35 @@ function Landing() {
                 src="../assets/interview.svg"
               />
 
-              <button
-                style={{
-                  display: "flex",
-                  fontFamily: "Poppins",
-                  fontStyle: "normal",
-                  fontWeight: 600,
-                  fontSize: "20px",
-                  lineHeight: "45px",
-                  justifyContent: "center",
-                  textAlign: "center",
-                  color: "white",
-                  backgroundColor: "#030232",
-                  position: "absolute",
-                  bottom: "100px",
-                  position: "absolute",
-                  width: "200px",
-                  height: "60px",
-                  verticalAlign: "middle",
-                  justifyItems: "center",
-                  alignItems: "center",
-                  borderRadius: "10px",
-                  left: "1010px",
-                }}
-              >
-                Start Now
-              </button>
+              <Link to="/auth">
+                {" "}
+                <button
+                  style={{
+                    display: "flex",
+                    fontFamily: "Poppins",
+                    fontStyle: "normal",
+                    fontWeight: 600,
+                    fontSize: "20px",
+                    lineHeight: "45px",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    color: "white",
+                    backgroundColor: "#030232",
+                    position: "absolute",
+                    bottom: "100px",
+                    position: "absolute",
+                    width: "200px",
+                    height: "60px",
+                    verticalAlign: "middle",
+                    justifyItems: "center",
+                    alignItems: "center",
+                    borderRadius: "10px",
+                    left: "1010px",
+                  }}
+                >
+                  Start Now
+                </button>
+              </Link>
             </div>
           </section>
           <div
@@ -188,7 +192,8 @@ function Landing() {
                 color: "white",
               }}
             >
-              InterViewPet - A Seamless Digital InterView Platform
+              Fluencer - A Seamless Digital English Fluency enhancing and
+              Virtual Assistant Platform
             </p>
           </div>
         </div>

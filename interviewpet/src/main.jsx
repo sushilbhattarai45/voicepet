@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import Auth from "./components/auth.jsx";
 import "./index.css";
 import "core-js/stable";
+import toast, { Toaster } from "react-hot-toast";
+import "react-toastify/dist/ReactToastify.css";
 import "regenerator-runtime/runtime";
 // import Sign from "./components/signup.jsx";
 import Home from "./components/home.jsx";

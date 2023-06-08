@@ -23,7 +23,7 @@ function NavBar() {
   const handleLogout = async (e) => {
     try {
       await account.deleteSession("current");
-      window.location.reload();
+      window.location.href = "/auth";
     } catch (error) {
       // toast.error(`${error.message}`);
     }
@@ -46,7 +46,7 @@ function NavBar() {
             }}
           >
             {" "}
-            InterViewPet
+            Fluencer
           </p>
 
           <ul>
@@ -71,7 +71,6 @@ function NavBar() {
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    alert("a");
                     handleLogout();
                   }}
                 >

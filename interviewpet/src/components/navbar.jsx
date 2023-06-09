@@ -35,22 +35,25 @@ function NavBar() {
     <>
       <div>
         <nav>
-          <p
-            style={{
-              display: "flex",
-              color: "white",
-              position: "absolute",
-              top: -1,
-              left: 100,
-              fontFamily: "Poppins",
-              fontStyle: "normal",
-              fontWeight: "800",
-              fontSize: "30px",
-            }}
-          >
+          <Link to="/home">
             {" "}
-            Fluencer
-          </p>
+            <p
+              style={{
+                display: "flex",
+                color: "white",
+                position: "absolute",
+                top: -1,
+                left: 100,
+                fontFamily: "Poppins",
+                fontStyle: "normal",
+                fontWeight: "800",
+                fontSize: "30px",
+              }}
+            >
+              {" "}
+              Fluencer
+            </p>
+          </Link>
 
           <ul>
             <div

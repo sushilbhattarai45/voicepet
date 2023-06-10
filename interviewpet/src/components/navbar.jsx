@@ -39,6 +39,7 @@ function NavBar() {
             {" "}
             <p
               style={{
+                cursor: "pointer",
                 display: "flex",
                 color: "white",
                 position: "absolute",
@@ -79,7 +80,7 @@ function NavBar() {
               </li>
             </Link>
             {/* <Link"> */}{" "}
-            <li
+            {/* <li
               onClick={() => {
                 alert("Chat Session is not available but comming soon");
               }}
@@ -90,7 +91,7 @@ function NavBar() {
             >
               {" "}
               Chat Session
-            </li>
+            </li> */}
             {/* </Link> */}
             {email ? (
               <>

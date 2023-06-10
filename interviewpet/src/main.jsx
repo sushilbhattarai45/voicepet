@@ -12,6 +12,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/navbar.jsx";
 import Interview from "./components/interview.jsx";
 import Landing from "./components/landing.jsx";
+import Chat from "./components/chat.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <NavBar />
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/auth" element={<Auth />} />
       <Route path="/" element={<Landing />} />
       <Route path="/home" element={<Home />} />
+      <Route path="/chat" element={<Chat />} />
 
       <Route path="/interview" element={<Interview />} />
     </Routes>

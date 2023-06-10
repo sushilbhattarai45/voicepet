@@ -17,7 +17,7 @@ function Interview() {
   useEffect(() => {
     getCurrentUser();
     checkAuth(email);
-  }, []);
+  }, [email]);
 
   const getCurrentUser = async () => {
     try {
@@ -31,7 +31,8 @@ function Interview() {
     }
   };
   const checkAuth = async () => {
-    if (email == null) {
+    // alert(email);
+    if (email == "") {
       window.location.href = "/auth";
     }
   };

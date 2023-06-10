@@ -141,6 +141,7 @@ function Auth() {
                   </div>
                 </div>
                 <div
+                  onClick={(e) => alert("Feature coming soon")}
                   style={{
                     cursor: "pointer",
                     marginTop: 50,

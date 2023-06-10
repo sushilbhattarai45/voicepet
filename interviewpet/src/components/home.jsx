@@ -293,7 +293,7 @@ function Home() {
                         fontSize: "40px",
                       }}
                     >
-                      Fluencer
+                      VoicePet
                     </p>
                     <p
                       style={{
@@ -394,7 +394,7 @@ function Home() {
               color: "white",
             }}
           >
-            Fluencer - A Seamless Digital English Fluency enhancing and Virtual
+            VoicePet - A Seamless Digital English Fluency enhancing and Virtual
             Assistant Platform
           </p>
         </div>

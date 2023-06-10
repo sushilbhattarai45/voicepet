@@ -87,7 +87,7 @@ function Landing() {
                   fontSize: "50px",
                 }}
               >
-                Fluencer
+                VoicePet
               </p>
               <p
                 style={{
@@ -196,7 +196,7 @@ function Landing() {
                 color: "white",
               }}
             >
-              Fluencer - A Seamless Digital English Fluency enhancing and
+              VoicePet - A Seamless Digital English Fluency enhancing and
               Virtual Assistant Platform
             </p>
           </div>

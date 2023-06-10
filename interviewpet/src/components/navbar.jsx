@@ -52,7 +52,7 @@ function NavBar() {
               }}
             >
               {" "}
-              Fluencer
+              VoicePet
             </p>
           </Link>
 

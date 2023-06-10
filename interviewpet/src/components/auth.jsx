@@ -46,7 +46,7 @@ function Auth() {
                 fontSize: "30px",
               }}
             >
-              Fluencer
+              VoicePet
             </p>
             <p
               style={{
@@ -58,7 +58,7 @@ function Auth() {
                 color: "#030232",
               }}
             >
-              Fluencer - A Seamless Digital English Fluency enhancing and
+              VoicePet - A Seamless Digital English Fluency enhancing and
               Virtual Assistant Platform
             </p>
           </center>
@@ -252,7 +252,7 @@ function Auth() {
               color: "white",
             }}
           >
-            Fluencer - A Seamless Digital English Fluency enhancing and Virtual
+            VoicePet - A Seamless Digital English Fluency enhancing and Virtual
             Assistant Platform
           </p>
         </div>

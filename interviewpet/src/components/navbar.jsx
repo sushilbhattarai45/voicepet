@@ -68,17 +68,19 @@ function NavBar() {
               <li>Logout</li>
             </div>
             {/* <li> Pricing</li> */}
-            <Link to="/interview">
-              {" "}
-              <li
-                style={{
-                  color: "white",
-                }}
-              >
+            {email ? (
+              <Link to="/interview">
                 {" "}
-                Voice Session
-              </li>
-            </Link>
+                <li
+                  style={{
+                    color: "white",
+                  }}
+                >
+                  {" "}
+                  Voice Session
+                </li>
+              </Link>
+            ) : null}
             {/* <Link"> */}{" "}
             {/* <li
               onClick={() => {

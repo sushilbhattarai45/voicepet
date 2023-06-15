@@ -32,9 +32,9 @@ function Interview() {
   };
   const checkAuth = async () => {
     // alert(email);
-    if (email == "") {
-      window.location.href = "/auth";
-    }
+    // if (email == "") {
+    //   window.location.href = "/auth";
+    // }
   };
   const { seconds, minutes, hours, ampm } = useTime({ format: "12-hour" });
   const [isStarted, setIsStarted] = React.useState(false);

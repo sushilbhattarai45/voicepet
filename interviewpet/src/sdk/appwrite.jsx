@@ -8,12 +8,3 @@ export const account = new Account(sdk);
 
 export const graphql = new Graphql(sdk);
 export const database = new Databases(sdk);
-// let logged = false;
-
-// if (account != null) {
-//   // console.log(account.getSession); // let data = await account.get();
-//   console.log("email" + "data.email");
-//   logged = true;
-// }
-// console.log(logged);
-// export const loggedStatus = logged;

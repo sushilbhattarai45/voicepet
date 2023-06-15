@@ -57,16 +57,18 @@ function NavBar() {
           </Link>
 
           <ul>
-            <div
-              style={{
-                cursor: "pointer",
-              }}
-              onClick={() => {
-                handleLogout();
-              }}
-            >
-              <li>Logout</li>
-            </div>
+            {email ? (
+              <div
+                style={{
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  handleLogout();
+                }}
+              >
+                <li>Logout</li>
+              </div>
+            ) : null}
             {/* <li> Pricing</li> */}
             {email ? (
               <Link to="/interview">

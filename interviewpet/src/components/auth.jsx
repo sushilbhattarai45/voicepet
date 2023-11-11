@@ -23,8 +23,8 @@ function Auth() {
     e.preventDefault();
     const acc = account.createOAuth2Session(
       "google",
-      "https://interviewpet.vercel.app/home",
-      "https://interviewpet.vercel.app/auth"
+      "https://voicepet.vercel.app/home",
+      "https://voicepet.vercel.app/auth"
     );
     console.log(acc);
   };

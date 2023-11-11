@@ -57,58 +57,54 @@ function Landing() {
                 flex: 1,
               }}
             >
-              <p
+              <span
                 style={{
-                  fontFamily: "Poppins",
                   fontStyle: "italic",
                   fontWeight: 500,
                   fontSize: "20px",
                 }}
               >
                 Your One Step
-              </p>
-              <p
+              </span>
+              <span
                 style={{
-                  marginTop: "-30px",
-
-                  fontFamily: "Poppins",
                   fontWeight: 600,
-                  fontSize: "50px",
+                  fontSize: "35px",
                 }}
               >
-                Virual InterView Sessions
-              </p>
-              <p
+                English Learner Platform
+              </span>
+              <span
                 style={{
-                  marginTop: "-70px",
-                  fontFamily: "Poppins",
                   fontStyle: "normal",
                   fontWeight: 800,
+                  marginTop: 10,
+                  fontFamily: "Poppins",
                   fontSize: "50px",
                 }}
               >
-                VoicePet
-              </p>
-              <p
+                "VoicePet"
+              </span>
+              <span
                 style={{
-                  marginTop: "-60px",
-
+                  fontFamily: "Arial",
                   fontFamily: "Poppins",
-                  fontStyle: "italic",
                   fontWeight: 500,
                   fontSize: "20px",
                 }}
               >
                 A Seamless Digital English Fluency enhancing and Virtual
                 Assistant Platform
-              </p>
+              </span>
             </div>
 
             <img
               src="../assets/home.svg"
               style={{
+                zIndex: -3,
+                marginTop: -100,
+                overflow: "hidden",
                 width: "500px",
-                position: "absolute",
                 height: "500px",
                 bottom: "-50px",
                 opacity: 0.7,

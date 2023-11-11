@@ -124,7 +124,6 @@ function Home() {
             >
               <p
                 style={{
-                  fontFamily: "Poppins",
                   fontStyle: "normal",
                   fontWeight: 800,
                   fontSize: "30px",
@@ -273,20 +272,16 @@ function Home() {
                     >
                       Your One Step
                     </p>
-                    <p
+                    <span
                       style={{
-                        marginTop: "-20px",
-
-                        fontFamily: "Poppins",
                         fontWeight: 600,
                         fontSize: "30px",
                       }}
                     >
                       Virual InterView Sessions
-                    </p>
-                    <p
+                    </span>
+                    <span
                       style={{
-                        marginTop: "-40px",
                         fontFamily: "Poppins",
                         fontStyle: "normal",
                         fontWeight: 600,
@@ -294,11 +289,9 @@ function Home() {
                       }}
                     >
                       VoicePet
-                    </p>
-                    <p
+                    </span>
+                    <span
                       style={{
-                        marginTop: "-50px",
-
                         fontFamily: "Poppins",
                         fontStyle: "italic",
                         fontWeight: 500,
@@ -307,12 +300,14 @@ function Home() {
                     >
                       A Seamless Digital English Fluency enhancing and Virtual
                       Assistant Platform
-                    </p>
+                    </span>
                   </div>
                   <div
                     style={{
                       width: "200px",
                       flex: 0.9,
+
+                      zIndex: -1,
                       // alignSelf: "center",
                       marginTop: -20,
                       borderRadius: "100%",

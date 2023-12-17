@@ -74,7 +74,7 @@ function Interview() {
       url: "https://chatgpt-gpt-3-5.p.rapidapi.com/ask",
       headers: {
         "content-type": "application/json",
-        "X-RapidAPI-Key": "699ea8e4admsha947a620bc04ad1p16131ajsncd08755dae31",
+        "X-RapidAPI-Key": "",
         "X-RapidAPI-Host": "chatgpt-gpt-3-5.p.rapidapi.com",
       },
       data: {
